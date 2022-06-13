@@ -1,4 +1,5 @@
 # Dependencies
+import pandas as pd
 from bs4 import BeautifulSoup as bs
 from splinter import Browser
 from webdriver_manager.chrome import ChromeDriverManager
@@ -73,3 +74,45 @@ def mars_facts():
 
     return mars_facts_dict
 
+def mars_hemispheres():
+    # Setup splinter
+    executable_path = {'executable_path': ChromeDriverManager().install()}
+    browser = Browser('chrome', **executable_path, headless=False)
+    # URL to scrape for Mars hemispheres images
+    url = 'https://marshemispheres.com/'
+    browser.visit(url)
+    time.sleep(1)
+    # Create BeautifulSoup object; parse with 'html.parser'
+    html = browser.html
+    soup = bs(html, 'html.parser')
+    hem_images = soup.find_all('div', class_="item")
+    hem_list=[]
+    for image in hem_images:
+        hemis_dict = {}
+        title = image.h3.text
+        hemis_dict['hemisphere_title'] = title
+        hemis_link = browser.links.find_by_partial_text(title).click()
+        hemis_html = browser.html
+        hemis_soup = bs(hemis_html, 'html.parser')
+        hemis_image = hemis_soup.find_all('li')
+        image_link = hemis_image[0].find('a')['href']
+        hemis_image_link = url + image_link
+        hemis_dict['img_url'] = hemis_image_link
+        browser.back()
+    browser.quit()
+    return hemis_dict
+
+# create a dictionary of the above dictionaries
+
+def scrape():
+    mars_news_dict = mars_news()
+    mars_image_dict = mars_featured_image()
+    mars_facts_dict = mars_facts()
+    hemis_dict = mars_hemispheres()
+    mars_dict = {}
+    mars_dict['news'] = mars_news_dict
+    mars_dict['image'] = mars_image_dict
+    mars_dict['facts'] = mars_facts_dict
+    mars_dict['hemispheres'] = hemis_dict
+    
+    return mars_dict

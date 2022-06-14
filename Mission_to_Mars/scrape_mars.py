@@ -98,9 +98,10 @@ def mars_hemispheres():
         image_link = hemis_image[0].find('a')['href']
         hemis_image_link = url + image_link
         hemis_dict['img_url'] = hemis_image_link
+        hem_list.append(hemis_dict)
         browser.back()
     browser.quit()
-    return hemis_dict
+    return hem_list
 
 # create a dictionary of the above dictionaries
 
@@ -108,11 +109,11 @@ def scrape():
     mars_news_dict = mars_news()
     mars_image_dict = mars_featured_image()
     mars_facts_dict = mars_facts()
-    hemis_dict = mars_hemispheres()
+    hem_list = mars_hemispheres()
     mars_dict = {}
     mars_dict['news'] = mars_news_dict
     mars_dict['image'] = mars_image_dict
     mars_dict['facts'] = mars_facts_dict
-    mars_dict['hemispheres'] = hemis_dict
+    mars_dict['hemispheres'] = hem_list
     
     return mars_dict

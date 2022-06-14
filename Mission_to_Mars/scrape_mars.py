@@ -110,10 +110,14 @@ def scrape():
     mars_image_dict = mars_featured_image()
     mars_facts_dict = mars_facts()
     hem_list = mars_hemispheres()
-    mars_dict = {}
-    mars_dict['news'] = mars_news_dict
-    mars_dict['image'] = mars_image_dict
-    mars_dict['facts'] = mars_facts_dict
-    mars_dict['hemispheres'] = hem_list
+
+    # use 'unpacking operator **' to merge multiple dictionaries
+    # https://towardsdatascience.com/merge-dictionaries-in-python-d4e9ce137374
+    mars_dict = {**mars_news_dict, **mars_image_dict, **mars_facts_dict, **hem_list}
+
+    # mars_dict['news'] = mars_news_dict
+    # mars_dict['image'] = mars_image_dict
+    # mars_dict['facts'] = mars_facts_dict
+    # mars_dict['hemispheres'] = hem_list
     
     return mars_dict

@@ -86,22 +86,24 @@ def mars_hemispheres():
     html = browser.html
     soup = bs(html, 'html.parser')
     hem_images = soup.find_all('div', class_="item")
-    hem_list=[]
+    hemis_list = []
     for image in hem_images:
         hemis_dict = {}
         title = image.h3.text
-        hemis_dict['hemisphere_title'] = title
-        hemis_link = browser.links.find_by_partial_text(title).click()
+        hemis_dict['hemis_title'] = title
+        browser.links.find_by_partial_text(title).click()
         hemis_html = browser.html
         hemis_soup = bs(hemis_html, 'html.parser')
         hemis_image = hemis_soup.find_all('li')
         image_link = hemis_image[0].find('a')['href']
         hemis_image_link = url + image_link
-        hemis_dict['img_url'] = hemis_image_link
-        hem_list.append(hemis_dict)
+        hemis_dict['hemis_img_url'] = hemis_image_link
+        hemis_list.append(hemis_dict)
         browser.back()
     browser.quit()
-    return hem_list
+    mars_hemis_dict = {}
+    mars_hemis_dict['hemispheres'] = hemis_list
+    return mars_hemis_dict
 
 # create a dictionary of the above dictionaries
 
@@ -109,10 +111,10 @@ def scrape():
     mars_news_dict = mars_news()
     mars_image_dict = mars_featured_image()
     mars_facts_dict = mars_facts()
-    hem_list = mars_hemispheres() # figure out how to do this one !!
+    hemis_dict = mars_hemispheres() 
 
-    # use 'unpacking operator **' to merge multiple dictionaries
-    # https://towardsdatascience.com/merge-dictionaries-in-python-d4e9ce137374
-    mars_dict = {**mars_news_dict, **mars_image_dict, **mars_facts_dict}
+    # use unpacking operator ** to merge multiple dictionaries
+    
+    mars_dict = {**mars_news_dict, **mars_image_dict, **mars_facts_dict, **hemis_dict}
     
     return mars_dict

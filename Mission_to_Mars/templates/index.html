@@ -6,19 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mars App</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
 </head>
 <body>
+
     <div class="container-fluid">
         <div class="jumbotron text-center">
-          <h1>Mission to Mars</h1>
+          <h1><strong>Mission to Mars</strong></h1>
           <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Get Martian Data Now!</a></p>
         </div>
     </div>
-    <div class="news-container">
+
+    <br>
+    <br>
+
+    <div class="row">
+    <div class="col-md-12">
+        <div class="mars-news-container">
         <article><h2><strong>Latest Mars News</strong></h2>
         <h3>{{ mars.news_article_title }}</h3>
         <h4>{{ mars.news_article_p }}</h4>
         </article>
+        </div>
     </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6"><h2><strong>Featured Martian Image</strong></h2>
+        <br>
+       <img src = {{mars.featured_image_url}} width="400" height="350">
+        </div>
+
+        <div class="col-md-6"><h2><strong>Mars Facts</strong></h2>
+        <br>
+        {{ mars.facts_table_html }}
+        </div>
+        
+      </div>
+
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-md-12"><h2><strong>Mars Hemispheres</strong></h2></div>
+    </div>
+
 </body>
 </html>

@@ -72,7 +72,13 @@
         <div class="col-md-12">
             <div style="text-align: center;"><h2><strong>Mars Hemispheres</strong></h2></div>
             <br>
-            {{ mars.hemispheres  }}
+            <!-- need to use a 'for' loop since hemispheres are stored in a dict inside a list -->
+            {% for hemisphere in mars.hemispheres %}
+
+            <img src = {{hemisphere.hemis_img_url}} alt="hemisphere image">
+            <p> {{ hemisphere.hemis_title }} </p>
+
+            {% endfor %}
     </div>
     </div>
 

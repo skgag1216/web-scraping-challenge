@@ -9,6 +9,10 @@
     <style>
         body {
             font-family: 'Courier New', monospace;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            margin-right: 80px;
+            margin-left: 80px;
         }
     </style>
 </head>
@@ -74,9 +78,15 @@
             <br>
             <!-- need to use a 'for' loop since hemispheres are stored in a dict inside a list -->
             {% for hemisphere in mars.hemispheres %}
-
-            <img src = {{hemisphere.hemis_img_url}} alt="hemisphere image">
-            <p> {{ hemisphere.hemis_title }} </p>
+            
+            <div class="col-md-3">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src={{hemisphere.hemis_img_url}} alt="hemisphere image" width="150px" height="150px">
+                <div class="card-body">
+                  <h4 class="card-title">{{ hemisphere.hemis_title }}</h4>
+                </div>
+              </div>
+            </div>
 
             {% endfor %}
     </div>
